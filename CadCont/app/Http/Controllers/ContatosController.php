@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Contato;
+use Illuminate\Support\Facades\Validator;
 
-class contato extends Controller
+class ContatosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +26,7 @@ class contato extends Controller
             ], 200);
         } else {
             return response()->json([
-                'sucess' => false,
+                'success' => false,
                 'message' => 'Nenhum contato encontrado.'
             ], 400); 
         }
@@ -140,7 +142,7 @@ class contato extends Controller
      */
     public function destroy(string $id)
     {
-        $registros = Contato::fing($id);
+        $registros = Contato::find($id);
 
         if (!$registros) {
             return response()->json([
@@ -150,7 +152,7 @@ class contato extends Controller
         }
 
         if ($registros->delete()) {
-            return respons()->json([
+            return response()->json([
                 'success' => true, 
                 'message' => 'Contato deletado com sucesso'
             ], 200); 
